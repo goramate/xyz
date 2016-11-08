@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="homeApp">
+<head>
+    <title>Administration</title>
+    <script src="angular.js"></script>
+    <script src="ngmodules/angular-route.js"></script>
+	<script src="ngmodules/angular-resource.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+          angular.module("homeApp", ["ngRoute", "ngResource"])
+            .config(function ($routeProvider) {
+
+                $routeProvider.when("/login", {
+                    templateUrl: "/crm2/views/login.html"
+                });
+
+                $routeProvider.when("/main", {
+                    templateUrl: "/crm2/views/adminMain.html"
+                });
+				$routeProvider.when("/test", {
+                    templateUrl: "/crm2/views/test.html"
+                });
+
+                $routeProvider.otherwise({
+                     redirectTo: "/login"
+                });
+            });
+    </script>
+	  <script src="/crm2/controllers/homeControllers.js"></script>	
+	  <script src="/crm2/controllers/mainCtrl.js"></script>	
+</head>
+<body>
+    <ng-view />
+</body>
+
+</html>

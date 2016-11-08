@@ -1,0 +1,53 @@
+﻿
+<div class="well" ng-controller="authCtrl">
+
+    <div class="alert alert-info" ng-hide="authenticationError">
+        Enter your username and password and click Log In to authenticate
+    </div>
+
+    <div class="alert alert-danger" ng-show="authenticationError">
+        Authentication Failed ({{authenticationError.status}}). Try again.
+    </div>
+
+    <form name="authForm" novalidate>
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" class="form-control" ng-model="username" required />
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control"
+                   ng-model="password" required />
+        </div>
+        <div class="text-center">
+            <button ng-click="authenticate(username, password)"
+                    ng-disabled="authForm.$invalid"
+                    class="btn btn-primary">
+                Log In
+            </button>
+        </div>
+		
+    </form>
+	
+	 <div class="text-center">
+            <button ng-click="test()"                   
+                    class="btn btn-primary">
+                TESTowe wywołanie /wer
+            </button>
+        </div>
+		 <div class="text-center">
+            <button ng-click="logout()"                   
+                    class="btn btn-primary">
+                Log Out
+            </button>
+        </div>
+		<div class="panel panel-default" ng-show="response">			
+			<div class="panel-footer">
+			Odpowiedź serwera: {{response.data}}
+			<br>
+			Status {{response.status}}
+			</div>
+			<div class="panel-footer" ng-show="response.user">User {{response.user}}</div>
+			<div class="panel-footer" ng-show="response">Odpowiedź serwera: {{response}}</div>
+		</div>
+</div>

@@ -1,0 +1,126 @@
+﻿
+<div class="panel panel-default row" ng-controller="mainCtrl">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!--a class="navbar-brand" href="#">WebSiteName</a-->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#/main">Home</a></li>
+        
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
+		<div class="text-center">
+            <button ng-click="get_word_list()"                   
+                    class="btn btn-primary">
+                Pobranie słów
+            </button>
+			<button ng-click="set_language('polish')" ng-show="lang_version  =='english'" class="btn btn-primary">polski</button>
+			<button ng-click="set_language('english')" ng-show="lang_version  =='polish'" class="btn btn-primary">angielski</button>
+			<button ng-click="show_details()" class="btn btn-primary" >szczegóły</button>			
+			<button ng-click="synchronize_words(words)" class="btn btn-primary" >Synchronizuj</button>			
+			<button ng-click="show_words_form()" class="btn btn-primary" >Dodaj słowa</button>
+        </div>
+		
+	<div class="container">
+		<table class="table table-bordered">
+			<tr>
+				 <td>id</td>				
+				  <td ng-show="lang_version  =='english'">angielskie</td>
+				  <td ng-show="lang_version  =='polish'">polskie</td>
+				  <td>znajomość</td>
+				  <td>podpowiedź</td>				  
+				  <td ng-show='details'>szczegóły</td>
+			</tr>
+			 <tr ng-repeat="item in words " ng-hide="item.hide">					
+				  <td>{{item.id}}</td>				  
+				  <td ng-show="lang_version  =='english'"><h2>{{item.english}}</h2></td>
+				  <td ng-show="lang_version  =='polish'">{{item.polish}}
+					<button ng-click="$parent.show_answer_index = $index" ng-show="$parent.show_answer_index != $index" class="btn btn-warning">
+						Odp
+					</button>
+					<div ng-show="$parent.show_answer_index == $index">{{item.english}}</div>
+					
+				  </td>				  
+				  <td>
+						<button  ng-click="update_word(item,-2)" class="btn btn-danger">-2</button>
+						<button  ng-click="update_word(item,-1)" class="btn btn-warning">-1</button>
+						<button  ng-click="update_word(item,0)" class="btn btn-info">0</button>
+						<button  ng-click="update_word(item,1)" class="btn btn-success">+1</button>
+						<button  ng-click="update_word(item,100)" class="btn btn-primary">Umiem</button>
+						<button  class="btn btn-danger">Usuń</button>
+				  </td>
+				  <td>
+					<button ng-click="$parent.selectedIndex = $index" ng-show="$parent.selectedIndex != $index" class="btn btn-warning">
+						Podpowiedź
+					</button>	
+					<div ng-show="$parent.selectedIndex == $index" >{{item.hint}}</div>
+				  </td>
+				  <td ng-show='details'>
+						<div>
+							Interwał:
+							<span class="label label-success" ng-show="item.balance  >= 4" >{{item.balance}}</span>
+							<span class="label label-warning" ng-show="item.balance >= -2 &&  item.balance  <= 3" >{{item.balance}}</span>
+							<span class="label label-danger" ng-show="item.balance <= -3 " >{{item.balance}}</span>
+						<div>
+						<div>
+							Liczba powtórek:
+							<span class="label label-success" ng-show="item.reply_number  >= 4" >{{item.reply_number}}</span>							
+							<span class="label label-warning" ng-show="item.reply_number  < 4" >{{item.reply_number}}</span>							
+						<div>
+						<div>
+							Ostatnia powtórka:	{{item.last_reply}}												
+						<div>
+						<div>
+							Słówko dodane: {{item.add_date}}													 													
+						<div>
+						
+				  </td>
+			  </tr>
+			</tr> 			
+	</table>
+	</div>
+	
+	<div class="container" ng-show="show_word_forms">
+		<table class="table table-bordered">
+			<tr>				
+				<td>dodaj słowo</td>
+				<td>tłumaczenie</td>
+				<td>podpowiedź</td>
+				<td><button  ng-click="" class="btn btn-success">dodaj</button></td>				
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-default" >			
+			<div class="panel-footer" ng-show="response.data">Odpowiedź serwera: {{response.data}}</div>
+			<div class="panel-footer" ng-show="response.status">Status: {{response.log}}</div>
+			<div class="panel-footer" ng-show="response.user">User: {{response.user}}</div>
+			<div class="panel-footer" ng-show="response">Odpowiedź serwera: {{response}}</div>			
+			<div class="panel-footer" ng-show="updated_words">Updated words {{updated_words}}</div>		
+			<!--div class="panel-footer" ng-show="words">words: {{words}}</div>	
+			<div class="panel-footer" ng-show="words">words: {{words.user}}</div>	
+			<div class="panel-footer" ng-show="words">words: {{response.data[2]}}</div-->				
+	</div>
+	
+	
+</div>
+
+
+
